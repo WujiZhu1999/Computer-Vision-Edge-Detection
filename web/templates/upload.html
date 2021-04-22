@@ -1,0 +1,39 @@
+<!doctype html>
+<title>Python Flask Upload Multiple Images and Display them</title>
+<h2>Select multiple images to upload and display</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+
+<form method="post" action="/upload/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="files[]" multiple="true" autocomplete="off" required>
+			<select name="filters" id="filters">
+				<option value="NONE">NONE</option>
+                <option value="CANNY">CANNY</option>
+                <option value="SOBEL_GRAY">SOBEL_GRAY</option>
+                <option value="SOBEL_RGB">SOBEL_RGB</option>
+            </select>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+
+{% if filenames %}
+	{% for filename in filenames %}
+		<div>
+			<img src = "{{ url_for('image', filename = filename) }}">			
+		</div>
+	{% endfor %}
+{% endif %}

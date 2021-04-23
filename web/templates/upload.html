@@ -1,6 +1,9 @@
 <!doctype html>
+<head>
+	<link rel="stylesheet" href="{{url_for('static', filename='index_css.css')}}">
+</head>
 <title>Python Flask Upload Multiple Images and Display them</title>
-<h2>Select multiple images to upload and display</h2>
+<h1>Select multiple images to upload and display</h1>
 <p>
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
@@ -12,24 +15,28 @@
 	  {% endif %}
 	{% endwith %}
 </p>
+<p><a href="{{ url_for('camera.index') }}">Real time edge detection</a></p>
+<p><a href="{{ url_for('index') }}">Back To Main Page</a></p>
+
 
 <form method="post" action="/upload/" enctype="multipart/form-data">
-    <dl>
 		<p>
 			<input type="file" name="files[]" multiple="true" autocomplete="off" required>
-			<select name="filters" id="filters" onchange = "format_onchange()">
-				<option selected="selected" value="NONE">NONE</option>
-                <option value="CANNY">CANNY</option>
-                <option value="SOBEL_GRAY">SOBEL_GRAY</option>
-                <option value="SOBEL_RGB">SOBEL_RGB</option>
-            </select>
+
 		</p>
-    </dl>
     <p>
 		<input type="submit" value="Submit">
 	</p>
 </form>
 
+<form>
+	<select name="filters" id="filters" onchange = "format_onchange()">
+	<option selected="selected" value="NONE">NONE</option>
+    <option value="CANNY">CANNY</option>
+    <option value="SOBEL_GRAY">SOBEL_GRAY</option>
+    <option value="SOBEL_RGB">SOBEL_RGB</option>
+    </select>
+</form>
 {% if filenames %}
 	{% for filename in filenames %}
 		<div>

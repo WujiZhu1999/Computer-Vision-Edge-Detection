@@ -57,4 +57,4 @@ def video_feed(index):
 @camera_blueprint.route('/')
 def index():
     """Video streaming home page."""
-    return render_template('index.html')
+    return render_template('camera.html')

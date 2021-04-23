@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{url_for('static', filename='index_css.css')}}">
+    <title>Live Streaming Demonstration</title>
+</head>
+<body>
+
+<p><a href="{{ url_for('index') }}">Back To Main Page</a></p>
+<p><a href="{{ url_for('upload.upload_form') }}">Image edge detection</a></p>
+
+<input type = "button" onclick = "format_link(0)" value = "Normal" />
+<input type = "button" onclick = "format_link(1)" value = "Sobel" />
+<input type = "button" onclick = "format_link(2)" value = "Sobel RGB" />
+<input type = "button" onclick = "format_link(3)" value = "Canny" />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            <img id = "frame" src='/camera/video_feed/0' width="100%">
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+
+function format_link(index){
+    const frame = document.getElementById("frame")
+    len = frame.src.length - 1 
+    frame.src = frame.src.substring(0, len) + index
+}
+</script>
+
+</html>

@@ -9,9 +9,7 @@
 </head>
 <body>
 
-<p><a href="{{ url_for('index') }}">Back To Main Page</a></p>
-<p><a href="{{ url_for('upload.upload_form') }}">Image edge detection</a></p>
-
+<h1> Choose between different filters </h1>
 <input type = "button" onclick = "format_link(0)" value = "Normal" />
 <input type = "button" onclick = "format_link(1)" value = "Sobel" />
 <input type = "button" onclick = "format_link(2)" value = "Sobel RGB" />
@@ -23,6 +21,9 @@
         </div>
     </div>
 </div>
+
+<p><a href="{{ url_for('index') }}">Back To Main Page</a></p>
+<p><a href="{{ url_for('upload.upload_form') }}">Image edge detection</a></p>
 </body>
 <script>
 

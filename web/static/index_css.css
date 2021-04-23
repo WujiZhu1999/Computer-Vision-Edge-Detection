@@ -1,7 +1,6 @@
 p {
 	text-align: center;
 	font-size: 3vw;
-	color: white;
 }
 
 body {
@@ -9,7 +8,7 @@ body {
     text-align:center;
     background-color: #222;
     font-size:14px;
-    padding:50px;
+    padding:30px;
 }
 a:link, a:visited, a:active {
     color: white;
@@ -17,9 +16,12 @@ a:link, a:visited, a:active {
 }
 
 a{
-	border-bottom: 3px solid white;
+	padding: 2px;
+	transition: 0.3s;
 }
-
+a:hover{
+	background-color: gray;
+}
 img {
   display: block;
   margin-left: auto;
@@ -29,4 +31,28 @@ img {
 
 h1{
 	color: white;
+}
+
+#filters, input {
+    background-color: #666;
+  	border: none;
+  	color: white;
+  	padding: 16px 32px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 16px;
+  	margin: 4px 2px;
+  	transition-duration: 0.4s;
+  	cursor: pointer;
+}
+
+input:hover {
+  background-color: #888;
+  color: white;
+}
+
+
+#aaa{
+	border: solid 5px white;
 }

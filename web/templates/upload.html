@@ -17,8 +17,8 @@
     <dl>
 		<p>
 			<input type="file" name="files[]" multiple="true" autocomplete="off" required>
-			<select name="filters" id="filters">
-				<option value="NONE">NONE</option>
+			<select name="filters" id="filters" onchange = "format_onchange()">
+				<option selected="selected" value="NONE">NONE</option>
                 <option value="CANNY">CANNY</option>
                 <option value="SOBEL_GRAY">SOBEL_GRAY</option>
                 <option value="SOBEL_RGB">SOBEL_RGB</option>
@@ -33,7 +33,36 @@
 {% if filenames %}
 	{% for filename in filenames %}
 		<div>
-			<img src = "{{ url_for('image', filename = filename) }}">			
+			<img class = "image_gallary" src = "{{ url_for('image', filename = filename, filter_index = 0) }}">			
 		</div>
 	{% endfor %}
 {% endif %}
+
+<script>
+	function format_onchange(){
+		var x = document.getElementsByClassName("image_gallary");
+		var e = document.getElementById("filters").value;
+		var i = 0;
+		if (e == "NONE") {
+			i = 0;
+		}
+		else if (e == "CANNY") {
+			i = 3;
+		}
+		else if (e == "SOBEL_GRAY") {
+			i = 1;
+		}
+		else if (e == "SOBEL_RGB") {
+			i = 2;
+		}
+
+		for (ele of x){
+			format_link(ele, i)
+		}
+
+	}
+	function format_link(frame, index){
+	    len = frame.src.length - 1 
+	    frame.src = frame.src.substring(0, len) + index
+	}
+</script>

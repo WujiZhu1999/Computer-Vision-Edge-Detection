@@ -49,12 +49,16 @@ def upload_image():
 
 
 
-@app.route('/upload/image/<filename>',endpoint='image')
-def return_img(filename):
-	return Response(get_image(filename), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/upload/image/<filename>/<filter_index>',endpoint='image')
+def return_img(filename, filter_index):
+	filter_index = int(filter_index)
 
-def get_image(filename):
+
+	return Response(get_image(filename, filter_index), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+def get_image(filename, filter_index):
     frame = cv2.imread(UPLOAD_FOLDER+filename)
+    frame = filters(frame, filter_index)
     ret, buffer = cv2.imencode('.jpg', frame)
     frame = buffer.tobytes()
     return (b'--frame\r\n' + b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result

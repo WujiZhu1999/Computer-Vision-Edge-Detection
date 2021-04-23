@@ -1,7 +1,5 @@
 from flask import render_template, Response
 import cv2
-import sys
-sys.path.append('../models/')
 import models
 from flask import Blueprint
 camera_blueprint = Blueprint('camera', __name__,)

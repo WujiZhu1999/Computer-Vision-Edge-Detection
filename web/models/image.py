@@ -2,7 +2,6 @@ from flask import render_template, Response,request, redirect
 import cv2
 import sys
 import os
-sys.path.append('../models/')
 sys.path.append('../')
 import models
 import urllib.request

@@ -3,6 +3,7 @@ import cv2
 import sys
 import os
 sys.path.append('../models/')
+sys.path.append('./models/')
 import models
 import urllib.request
 from werkzeug.utils import secure_filename
@@ -20,51 +21,8 @@ camera = cv2.VideoCapture(0)  # use 0 for web camera
 ##_____________________________________________##
 # this part responsible for image upload and processing
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/upload/')
-def upload_form():
-	return render_template('upload.html')
-
-@app.route('/upload/', methods=['POST', 'GET'])
-def upload_image():
-	if 'files[]' not in request.files:
-		flash('No file part')
-		return redirect(request.url)
-	files = request.files.getlist('files[]')
-	file_names = []
-	for file in files:
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file_names.append(filename)
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		#else:
-		#	flash('Allowed image types are -> png, jpg, jpeg, gif')
-		#	return redirect(request.url)
-
-	return render_template('upload.html', filenames=file_names)
-
-
-
-@app.route('/upload/image/<filename>/<filter_index>',endpoint='image')
-def return_img(filename, filter_index):
-	filter_index = int(filter_index)
-
-
-	return Response(get_image(filename, filter_index), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-def get_image(filename, filter_index):
-    frame = cv2.imread(UPLOAD_FOLDER+filename)
-    frame = filters(frame, filter_index)
-    ret, buffer = cv2.imencode('.jpg', frame)
-    frame = buffer.tobytes()
-    return (b'--frame\r\n' + b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-
-
-
+from image import image_blueprint
+app.register_blueprint(image_blueprint, url_prefix='/upload')
 
 
 

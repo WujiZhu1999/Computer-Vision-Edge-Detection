@@ -33,7 +33,7 @@
 {% if filenames %}
 	{% for filename in filenames %}
 		<div>
-			<img class = "image_gallary" src = "{{ url_for('image', filename = filename, filter_index = 0) }}">			
+			<img class = "image_gallary" src = "{{ url_for('upload.image', filename = filename, filter_index = 0) }}">			
 		</div>
 	{% endfor %}
 {% endif %}
